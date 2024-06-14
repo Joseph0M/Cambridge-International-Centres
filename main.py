@@ -22,7 +22,7 @@ from datetime import datetime
 import plotly.express as px
 import pandas as pd
 
-########## MAP PLOTTING ##########
+# Map Plotting
 class Maps():
     def __init__(self,key:str) -> None:
         self.client = googlemaps.Client(key=key)
@@ -36,7 +36,6 @@ class Maps():
 
     def _get_place(self,name:str) -> dict:
         self.calls += 1
-        print("Proceeding with call:", self.calls)
         data = self.client.places(name)
         data = data[name]
         return data
@@ -77,7 +76,7 @@ class Maps():
         else:
             return None
         
-########## MAIN ALGORITHM ##########
+#Main Algorithm
 
 schools = {}
 
@@ -88,7 +87,6 @@ def get_cities():
     req = requests.post(url+ext, data=payload)
     if req.status_code == 200:
         cities = []
-        print(req.text)
         data = json.loads(req.text)
         for item in data:
             if "Text" in item and item["Text"] != "Select a city":
@@ -124,7 +122,7 @@ def get_schools(city):
     process(lines,city)
 
 print("""
-    Welcome to the CIE School Finder! 
+    Welcome to the CIE Centre Finder! 
     Find the nearest Cambridge International Exam centre that offers exams to private candidates.
     This program will find all the schools in a given city or country and plot them on a map.
     The main website is https://www.cambridgeinternational.org/find-a-centre/ but its horrible to use!
@@ -141,8 +139,7 @@ By using this program you agree to the following:
 You agree to use this software at your own risk. The author is not responsible for any damages or actions caused by the use of this software.
 You releive the author of any legal responsibility for any damages or actions caused by the use of this software.
 This software is not intended to be used for any illegal purposes.  
-Data is not shared with any third parties, including the author.
-License: 
+MIT License: 
       THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
       FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
       IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
@@ -157,13 +154,13 @@ print("""Please enter your Google Maps API key. You can get one for free at http
       For calls of more than 1000 per day, you will need to enter your billing information.
       """)
 
-bigG_Key = input("Please enter your Google Maps API key: ")
+Key = input("Please enter your Google Maps API key: ")
 print("Thank you!")
 for city in get_cities():
     print(city)
     get_schools(city)
 
-maps = Maps(bigG_Key)
+maps = Maps(Key)
 for name in schools:
     schools[name] = maps.find(schools[name],name)
 maps.plot(schools).show()
