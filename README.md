@@ -1,7 +1,7 @@
 # Find a Cambridge International Exam Centre near you!
 
 
-For students that are sitting CIE qualifications, it may be challenging to find an exam centre that would accept private candidates (as their website is not optimal).
+For students that are sitting CIE qualifications, it may be challenging to find an exam centre that would accept private candidates (as their website is awful).
 Use `premade_map.html` to view the centres in the UK, or use the source code to change and alter the parameters.
 
 
